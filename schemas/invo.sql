@@ -1,27 +1,24 @@
--- MySQL dump 10.13  Distrib 5.1.50, for apple-darwin10.4.0 (i386)
---
--- Host: 127.0.0.1    Database: invo
--- ------------------------------------------------------
--- Server version	5.1.50
+/*
+Navicat MySQL Data Transfer
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+Source Server         : home
+Source Server Version : 50532
+Source Host           : localhost:3306
+Source Database       : invo
 
---
--- Table structure for table `companies`
---
+Target Server Type    : MYSQL
+Target Server Version : 50532
+File Encoding         : 65001
 
+Date: 2014-04-12 23:26:49
+*/
+
+SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `companies`
+-- ----------------------------
 DROP TABLE IF EXISTS `companies`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `companies` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(70) COLLATE utf8_spanish_ci NOT NULL,
@@ -30,25 +27,17 @@ CREATE TABLE `companies` (
   `city` varchar(40) COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `companies`
---
+-- ----------------------------
+-- Records of companies
+-- ----------------------------
+INSERT INTO `companies` VALUES ('1', 'Acme', '31566564', 'Address', 'Hello');
+INSERT INTO `companies` VALUES ('2', 'Acme Inc', '+44 564612345', 'Guildhall, PO Box 270, London', 'London');
 
-LOCK TABLES `companies` WRITE;
-/*!40000 ALTER TABLE `companies` DISABLE KEYS */;
-INSERT INTO `companies` VALUES (1,'Acme','31566564','Address','Hello'),(2,'Acme Inc','+44 564612345','Guildhall, PO Box 270, London','London');
-/*!40000 ALTER TABLE `companies` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `contact`
---
-
+-- ----------------------------
+-- Table structure for `contact`
+-- ----------------------------
 DROP TABLE IF EXISTS `contact`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `contact` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(70) COLLATE utf8_spanish_ci NOT NULL,
@@ -56,44 +45,45 @@ CREATE TABLE `contact` (
   `comments` text COLLATE utf8_spanish_ci NOT NULL,
   `created_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Dumping data for table `contact`
---
+-- ----------------------------
+-- Records of contact
+-- ----------------------------
 
---
--- Table structure for table `product_types`
---
+-- ----------------------------
+-- Table structure for `navigations`
+-- ----------------------------
+DROP TABLE IF EXISTS `navigations`;
+CREATE TABLE `navigations` (
+  `navigationID` int(11) NOT NULL AUTO_INCREMENT,
+  `action` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `controller` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `text` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `order` int(11) NOT NULL DEFAULT '0',
+  `active` int(11) NOT NULL DEFAULT '1',
+  `position` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `role` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '-1',
+  PRIMARY KEY (`navigationID`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
-DROP TABLE IF EXISTS `product_types`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `product_types` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(70) COLLATE utf8_spanish_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+-- ----------------------------
+-- Records of navigations
+-- ----------------------------
+INSERT INTO `navigations` VALUES ('1', 'index', 'index', 'Nhà', '0', '1', 'top-menu', '-1');
+INSERT INTO `navigations` VALUES ('2', 'index', 'invoices', 'Hóa đơn', '1', '1', 'top-menu', '1');
+INSERT INTO `navigations` VALUES ('3', 'index', 'about', 'Về chúng tôi', '2', '1', 'top-menu', '-1');
+INSERT INTO `navigations` VALUES ('4', 'index', 'contact', 'Liên hệ', '3', '1', 'top-menu', '-1');
+INSERT INTO `navigations` VALUES ('5', 'index', 'invoices', 'Hóa đơn', '0', '1', 'admin-menu', '1');
+INSERT INTO `navigations` VALUES ('6', 'index', 'companies', 'Công ty', '1', '1', 'admin-menu', '1');
+INSERT INTO `navigations` VALUES ('7', 'index', 'products', 'Sản phẩm', '2', '1', 'admin-menu', '1');
+INSERT INTO `navigations` VALUES ('8', 'index', 'producttypes', 'Phân loại', '3', '1', 'admin-menu', '1');
+INSERT INTO `navigations` VALUES ('9', 'profile', 'invoices', 'Hồ sơ cá nhân', '4', '1', 'admin-menu', '-1');
 
---
--- Dumping data for table `product_types`
---
-
-LOCK TABLES `product_types` WRITE;
-/*!40000 ALTER TABLE `product_types` DISABLE KEYS */;
-INSERT INTO `product_types` VALUES (5,'Vegetables'),(6,'Fruits');
-/*!40000 ALTER TABLE `product_types` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `products`
---
-
+-- ----------------------------
+-- Table structure for `products`
+-- ----------------------------
 DROP TABLE IF EXISTS `products`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `products` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `product_types_id` int(10) unsigned NOT NULL,
@@ -102,25 +92,38 @@ CREATE TABLE `products` (
   `active` enum('Y','N') COLLATE utf8_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `products`
---
+-- ----------------------------
+-- Records of products
+-- ----------------------------
+INSERT INTO `products` VALUES ('1', '5', 'Artichoke', '10.50', 'Y');
+INSERT INTO `products` VALUES ('2', '5', 'Bell pepper', '10.40', 'Y');
+INSERT INTO `products` VALUES ('3', '5', 'Cauliflower', '20.10', 'Y');
+INSERT INTO `products` VALUES ('4', '5', 'Chinese cabbage', '15.50', 'Y');
+INSERT INTO `products` VALUES ('5', '5', 'Malabar spinach', '7.50', 'Y');
+INSERT INTO `products` VALUES ('6', '5', 'Onion', '3.50', 'Y');
+INSERT INTO `products` VALUES ('7', '5', 'Peanut', '4.50', 'Y');
 
-LOCK TABLES `products` WRITE;
-/*!40000 ALTER TABLE `products` DISABLE KEYS */;
-INSERT INTO `products` VALUES (1,5,'Artichoke','10.50','Y'),(2,5,'Bell pepper','10.40','Y'),(3,5,'Cauliflower','20.10','Y'),(4,5,'Chinese cabbage','15.50','Y'),(5,5,'Malabar spinach','7.50','Y'),(6,5,'Onion','3.50','Y'),(7,5,'Peanut','4.50','Y');
-/*!40000 ALTER TABLE `products` ENABLE KEYS */;
-UNLOCK TABLES;
+-- ----------------------------
+-- Table structure for `product_types`
+-- ----------------------------
+DROP TABLE IF EXISTS `product_types`;
+CREATE TABLE `product_types` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(70) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Table structure for table `users`
---
+-- ----------------------------
+-- Records of product_types
+-- ----------------------------
+INSERT INTO `product_types` VALUES ('5', 'Vegetables');
+INSERT INTO `product_types` VALUES ('6', 'Fruits');
 
+-- ----------------------------
+-- Table structure for `users`
+-- ----------------------------
 DROP TABLE IF EXISTS `users`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `users` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(32) COLLATE utf8_spanish_ci NOT NULL,
@@ -128,28 +131,13 @@ CREATE TABLE `users` (
   `name` varchar(120) COLLATE utf8_spanish_ci NOT NULL,
   `email` varchar(70) COLLATE utf8_spanish_ci NOT NULL,
   `created_at` datetime NOT NULL,
+  `role` int(11) NOT NULL DEFAULT '0',
   `active` char(1) COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
---
--- Dumping data for table `users`
---
-
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'demo','c0bd96dc7ea4ec56741a4e07f6ce98012814d853','Phalcon Demo','demo@phalconphp.com','2012-04-10 20:53:03','Y');
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2012-04-10 20:53:38
+-- ----------------------------
+-- Records of users
+-- ----------------------------
+INSERT INTO `users` VALUES ('1', 'demo', '3d4f2bf07dc1be38b20cd6e46949a1071f9d0e3d', 'Phalcon Demo', 'demo@phalconphp.com', '2012-04-10 20:53:03', '1', 'Y');
+INSERT INTO `users` VALUES ('4', 'hoansinvo', '3d4f2bf07dc1be38b20cd6e46949a1071f9d0e3d', 'hoan nguyen', 'hoans.email@yahoo.com', '2014-03-17 11:28:04', '0', 'Y');
